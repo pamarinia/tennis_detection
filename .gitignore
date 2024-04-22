@@ -1,0 +1,6 @@
+runs/
+training/
+input/
+output_videos/
+models/
+yolov8x.pt
