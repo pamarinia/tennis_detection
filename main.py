@@ -32,6 +32,15 @@ def main():
     # MiniCourt
     mini_court = MiniCourt(video_frames[0])
 
+    # Detect Ball shots
+    ball_shot_frames = ball_tracker.get_ball_shot_frames(ball_detections)
+    print(ball_shot_frames)
+
+    # Convert positions to mini court positions
+    player_mini_court_positions, ball_mini_court_positions = mini_court.convert_bounding_boxes_to_mini_court_coordinates(player_detections, 
+                                                                                                        ball_detections, 
+                                                                                                        court_keypoints)
+
     # Draw output
 
     # Draw player bounding boxes
@@ -43,6 +52,8 @@ def main():
 
     # Draw mini court
     output_video_frames = mini_court.draw_mini_court(output_video_frames)
+    output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, player_mini_court_positions)
+    output_video_frames = mini_court.draw_points_on_mini_court(output_video_frames, ball_mini_court_positions, color=(0, 255, 255))
 
     # Draw frame number on top left corner
     for i, frame in enumerate(output_video_frames):
